@@ -8,12 +8,12 @@ const quizDB = [
         ans: "ans3"
     },
     {
-        question: "The metal whose salts are sensitive to light is?",
+        question: "The best conductor of Electricity among following is?",
         a: " Zinc ",
         b: "Silver ",
         c: " Copper",
         d: " Aluminium",
-        ans: "ans2"
+        ans: "ans3"
     },
     {
         question: "The Hottest Planet in the solar system is?",
@@ -24,19 +24,19 @@ const quizDB = [
         ans: "ans3"
     },
     {
-        question: "Fire temple is the place of worship of which of the following religion?",
-        a: " Taoism ",
-        b: " Shintoism",
-        c: " Judaism",
-        d: " Zoroastrianism (Parsi Religion)",
-        ans: "ans4"
+        question: "What is Real Name of Iron Man?",
+        a: " Tony Stark ",
+        b: " Mick Wingert",
+        c: " Robert Downey Jr.",
+        d: " Davin Ransom",
+        ans: "ans3"
     },
     {
-        question: "Golf player Vijay Singh belongs to which country?",
-        a: " India ",
-        b: "Fiji ",
-        c: " UK",
-        d: " USA",
+        question: "Who is the Father of Geometry?",
+        a: " Aristotle ",
+        b: " Euclid",
+        c: " Pythagoras",
+        d: " Kepler",
         ans: "ans2"
     }
 ];
@@ -57,45 +57,88 @@ let score = 0;
 const loadQuestion = () => {
 
     const questionList = quizDB[questionCount];
-    
+
     question.innerHTML = questionList.question;
-    
+
     option1.innerHTML = questionList.a;
     option2.innerHTML = questionList.b;
     option3.innerHTML = questionList.c;
     option4.innerHTML = questionList.d;
+
+
+
+    var element;
+    if (questionCount == 0) {
+        element = document.getElementById("prev");
+        element.style.display = "none";
+        element = document.getElementById("next");
+        element.style.display = "inline";
+    } else if (questionCount == quizDB.length - 1) {
+        element = document.getElementById("next");
+        element.style.display = "none";
+        element = document.getElementById("prev");
+        element.style.display = "inline";
+    } else {
+
+        element = document.getElementById("prev");
+        element.style.display = "inline";
+        element = document.getElementById("next");
+        element.style.display = "inline";
+    }
+
 }
 
-const getCheckAnswer = () =>{
+const getCheckAnswer = () => {
     let answer;
     answers.forEach((curAnsElem) => {
-        if(curAnsElem.checked){
+        if (curAnsElem.checked) {
             answer = curAnsElem.id;
         }
     });
-    return answer; 
+    return answer;
 }
 
 const deselectAll = () => {
-    answers.forEach((curAnsElem) => curAnsElem.checked = false);  
+    answers.forEach((curAnsElem) => curAnsElem.checked = false);
 }
 
 
 loadQuestion();
 
+next.addEventListener('click', () => {
+    deselectAll();
+    questionCount++;
+    if (questionCount < quizDB.length) {
+        loadQuestion();
+    } else {
+
+    }
+});
+
+
+prev.addEventListener('click', () => {
+    questionCount--;
+    loadQuestion();
+    deselectAll();
+});
+
 submit.addEventListener('click', () => {
     const checkedAnswer = getCheckAnswer();
     console.log(checkedAnswer);
 
-    if(checkedAnswer == quizDB[questionCount].ans){
+    if (checkedAnswer == quizDB[questionCount].ans) {
         score++;
     };
     questionCount++;
 
     deselectAll();
-    if(questionCount < quizDB.length){
+    if (questionCount < quizDB.length) {
         loadQuestion();
-    } else{
+    } else {
+
+        var element = document.getElementById("navigation-bar");
+        element.style.display = "none";
+
         showScore.innerHTML = `
         <h3> You Scored ${score}/${quizDB.length} 🍻 </h3>
         <button class="btn" onclick = "location.reload()"> Play Again </button>

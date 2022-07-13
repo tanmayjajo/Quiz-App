@@ -22,7 +22,7 @@ html{
 }
 
 .inner-div{
-    width: 40vw;
+    width: 60vw;
     background-color: white;
     padding: 3rem 8rem;
     border-radius: 1rem;
@@ -39,6 +39,12 @@ html{
 .inner-div li{
     font-size: 2rem;
     font-weight: 200;
+}
+
+#navigation-bar{
+        display: flex;
+        display: ms-flex;
+        display: -webkit-flex;
 }
 
 input{
@@ -65,6 +71,10 @@ input{
     background-color: #0984e3;
 }
 
+.btn:enabled:hover{
+    background-color: #0984e3;
+}
+
 #showScore{
     background-color: #dfe6e9;
     margin-top: 3rem;
@@ -83,6 +93,7 @@ input{
     background-color: #55efc4;
     columns: #2d3436;
 }
+
 #showScore .btn:hover{
     background-color: #00b894;
     columns: #fff;
